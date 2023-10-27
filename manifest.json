@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "Show Toast",
+    "version": "1.0",
+    "description": "A chrome extension to show you a toast.",
+    "action":{
+        "default_title": "Show Toast",
+        "default_popup": "./popup/popup.html"
+    },
+    "background":{
+        "service_worker": "service-worker.js",
+        "type": "module"
+    },
+    "content_scripts": [{
+        "matches": ["https://*/*"],
+        "js": ["content-script.js"],   
+        "css": ["content.css"]     
+    }],
+    "host_permissions": ["<all_urls>"],
+    "permissions":["storage", "contextMenus","activeTab","tabs"]
+}
