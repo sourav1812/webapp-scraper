@@ -1,10 +1,10 @@
 {
     "manifest_version": 3,
-    "name": "Show Toast",
-    "version": "1.0",
-    "description": "A chrome extension to show you a toast.",
+    "name": "Scraper",
+    "version": "1.1",
+    "description": "Scrape linkedIn's user data.",
     "action":{
-        "default_title": "Show Toast"
+        "default_title": "Scraper"
     },
     "background":{
         "service_worker": "service-worker.js",
@@ -13,7 +13,7 @@
     "content_scripts": [{
         "matches": ["https://*/*"],
         "js": ["scripts/content.js"],
-        "css": ["content.css"]     
+        "css": ["scripts/content.css"]     
     }],
     "host_permissions": ["<all_urls>"],
     "permissions":["storage", "contextMenus","activeTab","tabs"]

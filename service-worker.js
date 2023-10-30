@@ -8,21 +8,20 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({active: false});
 });
 
-chrome.action.onClicked.addListener((tab) => { 
+chrome.action.onClicked.addListener(tab => { 
     sendMessage(tab.id);
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     console.log("URL: ",changeInfo);
-    chrome.storage.sync.get(["active"], async ({active}) => {
+    chrome.storage.sync.get(["active"], ({active}) => {
         if(active){
-            if (changeInfo.status === "complete") {
+            if (changeInfo.status === "loading") {
                 const toastMessage = "show";
-                // URL has changed, do something with the new URL
-                const response = await chrome.tabs.sendMessage(tabId, {
-                    toastMessage
-                });
-                console.log("response ",response);
+              // URL has changed, do something with the new URL
+              chrome.tabs.sendMessage(tabId, {
+                toastMessage
+            });
             }  
         }
     });
@@ -30,31 +29,31 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 chrome.contextMenus.onClicked.addListener(({menuItemId}) => {
     if (menuItemId === "show-toast") {
-        chrome.storage.sync.get(["active"], async ({message}) => {
-            const [tab] = await chrome.tabs.query({currentWindow:true, active:true});
-            sendMessage(tab.id)
+        chrome.storage.sync.get(["active"], ({message}) => {
+            chrome.tabs.query({currentWindow:true, active:true}, (tabs) => {
+                const tab = tabs[0];
+                sendMessage(tab.id)
+            });
         });
     }
 });
 
 
 const sendMessage = (tabId) => {
-    chrome.storage.sync.get(["active"], async ({active}) => {
+    chrome.storage.sync.get(["active"], ({active}) => {
         if(!active){
             chrome.storage.sync.set({active: true});
             const toastMessage = "show";
-            const response = await chrome.tabs.sendMessage(tabId, {
+            chrome.tabs.sendMessage(tabId, {
                 toastMessage
             });
-            console.log("response",response);
         }else{
             console.log("REMOVE");
             chrome.storage.sync.set({active: false});
             const toastMessage = "remove";
-            const response = await chrome.tabs.sendMessage(tabId, {
+            chrome.tabs.sendMessage(tabId, {
                 toastMessage
             });
-            console.log("response",response);
         }
     });
 }
