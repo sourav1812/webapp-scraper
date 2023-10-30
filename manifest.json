@@ -4,8 +4,7 @@
     "version": "1.0",
     "description": "A chrome extension to show you a toast.",
     "action":{
-        "default_title": "Show Toast",
-        "default_popup": "./popup/popup.html"
+        "default_title": "Show Toast"
     },
     "background":{
         "service_worker": "service-worker.js",
@@ -13,7 +12,7 @@
     },
     "content_scripts": [{
         "matches": ["https://*/*"],
-        "js": ["content-script.js"],   
+        "js": ["scripts/content.js"],
         "css": ["content.css"]     
     }],
     "host_permissions": ["<all_urls>"],

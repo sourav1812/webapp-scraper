@@ -2,17 +2,19 @@
     display: block !important;
     box-sizing: border-box !important;
     position: fixed !important;
-    right: 50% !important;
+    right: 0 !important;
     top: 0 !important;
-    padding: 0 !important;
+    padding-top: 10px !important;
     width: 378px !important;
+    height: 100vh;
     z-index: 2147483647 !important;
-    background-color: black;
-    color: #fff !important;
-    border: 1px solid #ccc !important;
+    background-color: white;
+    color: black !important;
+    font-size: 20px;
+    font-weight: 600;
+    /* border: 1px solid #ccc !important; */
     border-top: none !important;
     border-radius: 0 !important;
     font-family: 'Helvetica Neue', Arial, sans-serif !important;
     letter-spacing: 0 !important;
-    text-align: center;
 }
